@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
 
-function App() {
+import Header from './components/Header';
+import SwimmingLapsForm from './components/SwimmingLapsForm';
+import LapsProgressList from './components/LapsProgressList';
+
+const App = () => {
+  const [swimStyles, setSwimStyles] = useState([
+    {
+      id: 0,
+      name: 'Did not track individually',
+      value: 'overall'
+    },
+    {
+      id: 1,
+      name: 'Crawl/Freestyle',
+      value: 'crawl'
+    },
+    {
+      id: 2,
+      name: 'Backstroke',
+      value: 'backstroke'
+    },
+    {
+      id: 3,
+      name: 'Butterfly',
+      value: 'butterfly'
+    }
+  ]);
+
+  const [lapsHistoryList, setLapsHistoryList] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+
+      <div className="container">
+        <SwimmingLapsForm
+          swimStyles={swimStyles}
+          currentHistory={lapsHistoryList}
+          setHistory={setLapsHistoryList}
+        />
+
+        <LapsProgressList currentHistory={lapsHistoryList} />
+      </div>
+    </>
   );
-}
+};
 
 export default App;
